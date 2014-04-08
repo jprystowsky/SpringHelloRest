@@ -20,7 +20,7 @@ public class MessageServiceImplTest {
 	@Configuration
 	static class ContextConfiguration {
 		@Bean
-		MessageService mMessageService() {
+		MessageService messageService() {
 			return new MessageServiceImpl();
 		}
 	}

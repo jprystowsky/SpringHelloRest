@@ -1,4 +1,4 @@
-# SpringHelloRest
+# SpringHelloRest [![Build Status](https://travis-ci.org/jprystowsky/SpringHelloRest.svg?branch=master)](https://travis-ci.org/jprystowsky/SpringHelloRest)
 
 A simple Spring-based REST web service containing minimal cruft and configuration (except most notably for the choice
 of Jetty over Tomcat for an embedded webserver). Although intended as a reference point and boilerplate starter, it

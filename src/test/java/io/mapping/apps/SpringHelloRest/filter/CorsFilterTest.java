@@ -76,7 +76,7 @@ public class CorsFilterTest {
 	}
 
 	@Test
-	public void shouldAddCorsHeaders() throws Exception {
+	public void shouldAddCorsHeadersWhenRequestMade() throws Exception {
 		mMockMvc.perform(get("/"))
 				.andExpect(header().string("Access-Control-Allow-Origin", "*"))
 				.andExpect(header().string("Access-Control-Allow-Methods", "GET"))

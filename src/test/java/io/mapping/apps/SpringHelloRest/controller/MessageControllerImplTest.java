@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,6 +42,10 @@ public class MessageControllerImplTest {
 			return new MessageControllerImpl();
 		}
 
+		/**
+		 * The "interface" qualifier is necessary so that Spring DI doesn't get confused with dual implementations of
+		 * MessageController
+		 */
 		@Bean
 		@Qualifier("interface")
 		MessageController messageController() {
@@ -69,6 +74,8 @@ public class MessageControllerImplTest {
 	public void setUp() throws Exception {
 		mMockMvc = MockMvcBuilders.standaloneSetup(mMessageController).build();
 		mMapper = new ObjectMapper();
+
+		assertNotNull("MockMvc shouldn't be null", mMockMvc);
 	}
 
 	@Test
@@ -84,14 +91,16 @@ public class MessageControllerImplTest {
 	}
 
 	@Test
-	public void shouldReturnHelloSpringWhenInvoked() throws Exception {
-		final MvcResult mvcResult = mMockMvc.perform(get("/message/Hello, Spring!"))
+	public void shouldReturnHelloSpringWhenAtPath() throws Exception {
+		final String helloSpring = "Hello, Spring!";
+
+		final MvcResult mvcResult = mMockMvc.perform(get("/message/" + helloSpring))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8"))
 				.andReturn();
 
 		final Message message = mMapper.readValue(mvcResult.getResponse().getContentAsString(), Message.class);
 
-		assertEquals("Message should be 'Hello, Spring!'", "Hello, Spring!", message.getMessage());
+		assertEquals("Message should be '" + helloSpring +  "'", helloSpring, message.getMessage());
 	}
 }

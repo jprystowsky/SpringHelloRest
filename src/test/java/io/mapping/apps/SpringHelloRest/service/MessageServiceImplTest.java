@@ -30,7 +30,6 @@ public class MessageServiceImplTest {
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull("Service shouldn't be null", mMessageService);
-
 	}
 
 	@Test
